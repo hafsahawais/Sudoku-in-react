@@ -8,8 +8,17 @@
 
 table {
   border-collapse: collapse;
+  border: 2px solid darkgreen;
 }
 
 td {
   padding: 0;
+}
+
+.b-border {
+  border-bottom: 2px solid darkgreen;
+}
+
+.r-border {
+  border-right: 2px solid darkgreen;
 }

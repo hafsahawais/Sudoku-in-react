@@ -1,14 +1,16 @@
 import React from "react";
+import Button from '@mui/material/Button';
+import './button.css'
 
-
-const Button = ({handleDifficulty}) => {
+const DifficultyButton = ({handleDifficulty}) => {
     return (
         <>
-        <button onClick={() => handleDifficulty('easy')}>easy</button>
-        <button onClick={() => handleDifficulty('medium')}>medium</button>
-        <button onClick={() => handleDifficulty('hard')}>hard</button>
+        <Button variant='text' color='success' onClick={() => handleDifficulty('easy')}>easy</Button>
+        <Button variant='text' color='success' onClick={() => handleDifficulty('medium')}>medium</Button>
+        <Button variant='text' color='success' onClick={() => handleDifficulty('hard')}>hard</Button>
+        <Button variant='text' color='success' onClick={() => handleDifficulty('random')}>random</Button>
         </>
     )
 }
 
-export default Button;
+export default DifficultyButton;

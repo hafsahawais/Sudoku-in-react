@@ -1,9 +1,11 @@
 import React from "react";
+import Button from '@mui/material/Button';
+
 
 const SolveButton = ({solve}) => {
 
     return (
-        <button onClick={solve}>solve</button>
+        <Button variant='outlined' color='success'  onClick={solve}>solve</Button>
     )
 
 }

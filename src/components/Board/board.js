@@ -1,10 +1,11 @@
-// noinspection BadExpressionStatementJS
-import './board.css'
+
 import React, {useEffect, useState} from "react";
-import sudokuSolver from "./solver";
-import Button from "./difficultyButton";
 import cloneDeep from 'lodash/cloneDeep';
-import SolveButton from './solveButton'
+import SudokuSolver from "../SolveSudoku/solver";
+import Button from "../Buttons/difficultyButton";
+import SolveButton from '../Buttons/solveButton'
+import ClearButton from "../Buttons/clearButton";
+import './board.css'
 
 const Board = () => {
 
@@ -37,7 +38,6 @@ const Board = () => {
       }
 
 
-
         const handleUpdate = (e, row, col) => {
         const newBoard = board2d;
         // console.log(e.target.value,row,col)
@@ -49,19 +49,34 @@ const Board = () => {
         };
 
         function handleDifficulty(difficulty) {
-              setDifficulty(difficulty)
+            var myArray = [
+              'easy',
+              'medium',
+              'hard'
+            ]
+            if(difficulty === 'random') {
+                var randomItem = myArray[Math.floor(Math.random()*myArray.length)];
+                setDifficulty(randomItem)
+            }
+            else
+            setDifficulty(difficulty)
         }
 
     //solve sudoku
         function solveSudoku() {
                 let sudoku = cloneDeep(board2d);
                 // console.log(board2d)
-                sudokuSolver(sudoku);
+                SudokuSolver(sudoku);
                 // console.log(sudoku)
                 setBoard2d(sudoku)
 
          }
     //solve sudoku ends
+
+        function clear() {
+                let clearSudoku = cloneDeep(Array(9).fill(0).map(() => Array(9).fill(0)))
+                setBoard2d(clearSudoku)
+        }
 
     return (
         <>
@@ -70,9 +85,9 @@ const Board = () => {
         <tbody>
         {
             board2d.map((row, iRow) => {
-                return <tr key={iRow}>
+                return <tr key={iRow}  className = {(iRow + 1) % 3 === 0 ? 'b-border' : ''}>
                     {row.map((col,iCol) => {
-                        return <td key={iCol}>
+                        return <td key={iCol} className={((iCol + 1) % 3 === 0) ? 'r-border' : ''}>
                         <input
                             maxLength={1}
                             onChange={(e) => handleUpdate(e,iRow,iCol)}
@@ -87,9 +102,14 @@ const Board = () => {
         }
         </tbody>
     </table>
-
+            <div className='style-buttons'>
             <Button handleDifficulty={handleDifficulty} />
+            <ClearButton clear={clear} />
+
+            </div>
             <SolveButton solve={solveSudoku} />
+
+
 
         </>
         )
