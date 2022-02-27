@@ -28,24 +28,20 @@ const Board = () => {
       },[board])
 
 
+    //creating a 2d board from the api board representation
+        function set2dBoard(board) {
+            var arr = Array(9).fill(0).map(() => Array(9).fill(0));
+            Object.keys(board).map((key) => {arr[key[0].charCodeAt(0) - 65][key[1] - 1] = parseInt(board[key]) })
+            setBoard2d(arr)
 
-      function set2dBoard(board) {
-          var arr = Array(9).fill(0).map(() => Array(9).fill(0));
-          Object.keys(board).map((key) => {arr[key[0].charCodeAt(0) - 65][key[1] - 1] = parseInt(board[key]) })
-          // console.log(arr)
-          setBoard2d(arr)
+        }
 
-      }
-
-
+        //take input from keyboard
         const handleUpdate = (e, row, col) => {
-        const newBoard = board2d;
-        // console.log(e.target.value,row,col)
-        newBoard[row][col] = e.target.value;
+            const newBoard = board2d;
+            newBoard[row][col] = e.target.value;
+            setBoard2d(newBoard);
 
-        // console.log(newBoard)
-        setBoard2d(newBoard);
-        // console.log(board2d)
         };
 
         function handleDifficulty(difficulty) {
@@ -64,18 +60,16 @@ const Board = () => {
 
     //solve sudoku
         function solveSudoku() {
-                let sudoku = cloneDeep(board2d);
-                // console.log(board2d)
-                SudokuSolver(sudoku);
-                // console.log(sudoku)
-                setBoard2d(sudoku)
+              let sudoku = cloneDeep(board2d);
+              SudokuSolver(sudoku);
+              setBoard2d(sudoku)
 
          }
     //solve sudoku ends
 
         function clear() {
-                let clearSudoku = cloneDeep(Array(9).fill(0).map(() => Array(9).fill(0)))
-                setBoard2d(clearSudoku)
+              let clearSudoku = cloneDeep(Array(9).fill(0).map(() => Array(9).fill(0)))
+              setBoard2d(clearSudoku)
         }
 
     return (
@@ -108,8 +102,6 @@ const Board = () => {
 
             </div>
             <SolveButton solve={solveSudoku} />
-
-
 
         </>
         )
